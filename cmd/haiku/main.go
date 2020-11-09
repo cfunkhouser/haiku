@@ -18,7 +18,7 @@ func main() {
 	flag.Parse()
 
 	if *withNumber {
-		fmt.Println(haiku.SimpleWithNumber())
+		fmt.Println(haiku.Complex(haiku.WithComponents(haiku.Adjective, haiku.Noun, haiku.Number)))
 		return
 	}
 	fmt.Println(haiku.Simple())

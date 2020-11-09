@@ -4,8 +4,9 @@
 package haiku
 
 import (
-	"fmt"
 	"math/rand"
+	"strconv"
+	"strings"
 )
 
 // Words to be used for naming something.
@@ -16,12 +17,73 @@ func (l Words) Random() string {
 	return l[rand.Intn(len(l))]
 }
 
-// Simple haiku-style name.
-func Simple() string {
-	return fmt.Sprintf("%v-%v", Adjectives.Random(), Nouns.Random())
+type haiku struct {
+	seperator  string
+	components []string
 }
 
-// SimpleWithNumber haiku-style name.
-func SimpleWithNumber() string {
-	return fmt.Sprintf("%v-%v-%v", Adjectives.Random(), Nouns.Random(), rand.Intn(255))
+func (h haiku) String() string {
+	return strings.Join(h.components, h.seperator)
+}
+
+// DefaultSeperator for haiku names.
+const DefaultSeperator = "-"
+
+var defaultHaiku = haiku{
+	seperator: DefaultSeperator,
+}
+
+// Option of a haiku-style name, to be passed to Complex.
+type Option func(*haiku)
+
+// WithSeperator to divide the segments of the haiku. If this is provided more
+// than once, the last one provided wins.
+func WithSeperator(sep string) Option {
+	return func(h *haiku) {
+		h.seperator = sep
+	}
+}
+
+// Component of a haiku name. Should be passed to WithComponents.
+type Component func() string
+
+// Adjective component of a haiku name.
+func Adjective() string {
+	return Adjectives.Random()
+}
+
+// Noun component of a haiku name.
+func Noun() string {
+	return Nouns.Random()
+}
+
+const maxInt = 255
+
+// Number component of a haiku name.
+func Number() string {
+	return strconv.Itoa(rand.Intn(maxInt))
+}
+
+// WithComponents to divide the segments of the haiku. If this is provided more
+// than once, the last one provided wins.
+func WithComponents(cs ...Component) Option {
+	return func(h *haiku) {
+		for _, c := range cs {
+			h.components = append(h.components, c())
+		}
+	}
+}
+
+// Complex haiku-style name.
+func Complex(opts ...Option) string {
+	h := defaultHaiku
+	for _, o := range opts {
+		o(&h)
+	}
+	return h.String()
+}
+
+// Simple haiku-style name.
+func Simple() string {
+	return Complex(WithComponents(Adjective, Noun))
 }
