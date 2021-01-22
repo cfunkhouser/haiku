@@ -2,7 +2,8 @@
 
 Simple generator of haiku-style names for whatever your naming needs.
 
-There is a library, and there is a CLI tool. They are both so simple, this README is insulting.
+There is a library, and there is a CLI tool. They are both so simple, this
+README is insulting.
 
 ## CLI Example
 
@@ -18,4 +19,5 @@ chippy-oarfish-150
 
 ## Word Lists
 
-The words used in this tool are sourced from [Princeton WordNet](https://wordnet.princeton.edu/).
+The words used in this tool are sourced from [Princeton
+WordNet](https://wordnet.princeton.edu/).
