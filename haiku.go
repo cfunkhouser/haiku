@@ -26,14 +26,7 @@ func (h haiku) String() string {
 	return strings.Join(h.components, h.seperator)
 }
 
-// DefaultSeperator for haiku names.
-const DefaultSeperator = "-"
-
-var defaultHaiku = haiku{
-	seperator: DefaultSeperator,
-}
-
-// Option of a haiku-style name, to be passed to Complex.
+// Option of a haiku-style name, to be passed to Custom.
 type Option func(*haiku)
 
 // WithSeperator to divide the segments of the haiku. If this is provided more
@@ -74,8 +67,15 @@ func WithComponents(cs ...Component) Option {
 	}
 }
 
-// Complex haiku-style name.
-func Complex(opts ...Option) string {
+// DefaultSeperator for haiku names.
+const DefaultSeperator = "-"
+
+var defaultHaiku = haiku{
+	seperator: DefaultSeperator,
+}
+
+// Custom haiku-style name.
+func Custom(opts ...Option) string {
 	h := defaultHaiku
 	for _, o := range opts {
 		o(&h)
@@ -85,5 +85,5 @@ func Complex(opts ...Option) string {
 
 // Simple haiku-style name.
 func Simple() string {
-	return Complex(WithComponents(Adjective, Noun))
+	return Custom(WithComponents(Adjective, Noun))
 }
