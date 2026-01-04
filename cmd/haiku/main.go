@@ -1,3 +1,5 @@
+// Program haiku is a simple generator of haiku-style names for whatever your
+// naming needs.
 package main
 
 import (

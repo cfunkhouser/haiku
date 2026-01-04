@@ -1,0 +1,19 @@
+version: "2"
+linters:
+  enable:
+    - bodyclose
+    - err113
+    - gocritic
+    - gocyclo
+    - misspell
+    - noctx
+    - nolintlint
+    - revive
+    - sloglint
+  settings:
+    staticcheck:
+      checks:
+        - all # Enables all Staticcheck checks by default
+formatters:
+  enable:
+    - gofmt
