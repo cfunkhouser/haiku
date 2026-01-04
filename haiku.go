@@ -18,22 +18,22 @@ func (l Words) Random() string {
 }
 
 type haiku struct {
-	seperator  string
+	separator  string
 	components []string
 }
 
 func (h haiku) String() string {
-	return strings.Join(h.components, h.seperator)
+	return strings.Join(h.components, h.separator)
 }
 
 // Option of a haiku-style name, to be passed to Custom.
 type Option func(*haiku)
 
-// WithSeperator to divide the segments of the haiku. If this is provided more
+// WithSeparator to divide the segments of the haiku. If this is provided more
 // than once, the last one provided wins.
-func WithSeperator(sep string) Option {
+func WithSeparator(sep string) Option {
 	return func(h *haiku) {
-		h.seperator = sep
+		h.separator = sep
 	}
 }
 
@@ -71,7 +71,7 @@ func WithComponents(cs ...Component) Option {
 const DefaultSeperator = "-"
 
 var defaultHaiku = haiku{
-	seperator: DefaultSeperator,
+	separator: DefaultSeperator,
 }
 
 // Custom haiku-style name.

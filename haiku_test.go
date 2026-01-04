@@ -12,7 +12,7 @@ func TestHaikuString(t *testing.T) {
 		want  string
 	}{
 		"zero": {},
-		"no seperator": {
+		"no separator": {
 			haiku: haiku{
 				components: []string{"one", "two"},
 			},
@@ -20,13 +20,13 @@ func TestHaikuString(t *testing.T) {
 		},
 		"no components": {
 			haiku: haiku{
-				seperator: "-",
+				separator: "-",
 			},
 			want: "",
 		},
 		"usual": {
 			haiku: haiku{
-				seperator:  "-",
+				separator:  "-",
 				components: []string{"one", "two"},
 			},
 			want: "one-two",
@@ -40,15 +40,15 @@ func TestHaikuString(t *testing.T) {
 	}
 }
 
-func TestWithSeperator(t *testing.T) {
+func TestWithSeparator(t *testing.T) {
 	got := haiku{
-		seperator: "ORIGINAL",
+		separator: "ORIGINAL",
 	}
 	want := haiku{
-		seperator: "WANT",
+		separator: "WANT",
 	}
 
-	WithSeperator("WANT")(&got)
+	WithSeparator("WANT")(&got)
 
 	if diff := cmp.Diff(want, got, cmp.AllowUnexported(haiku{})); diff != "" {
 		t.Errorf("WithSeperator(): mismatch (-want, +got):\n%v\n", diff)
@@ -77,13 +77,13 @@ func TestWithComponents(t *testing.T) {
 
 func TestCustom(t *testing.T) {
 	order := []string{}
-	o1 := func(h *haiku) {
+	o1 := func(*haiku) {
 		order = append(order, "o1")
 	}
-	o2 := func(h *haiku) {
+	o2 := func(*haiku) {
 		order = append(order, "o2")
 	}
-	o3 := func(h *haiku) {
+	o3 := func(*haiku) {
 		order = append(order, "o3")
 	}
 	_ = Custom(o1, o2, o3)
