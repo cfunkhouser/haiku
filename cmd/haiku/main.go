@@ -3,8 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"math/rand"
-	"time"
 
 	"github.com/cfunkhouser/haiku"
 )
@@ -14,7 +12,6 @@ var (
 )
 
 func main() {
-	rand.Seed(time.Now().UnixNano())
 	flag.Parse()
 
 	if *withNumber {
